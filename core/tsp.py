@@ -1,7 +1,5 @@
 from itertools import permutations
 
-from matrices import build_matrices
-
 
 def tsp_brute_force(graph):
     def calc_cost(path):
@@ -73,12 +71,3 @@ def tsp_dp(graph):
         return best_path
 
     return calc_best_cost_from(0, 1), trace_best_path()
-
-
-if __name__ == "__main__":
-    locs = ["New York", "Los Angeles", "Philadelphia", "Seattle", "Austin"]
-
-    distances, times = build_matrices(locs)
-
-    print(tsp_brute_force(distances))
-    print(tsp_dp(distances))
