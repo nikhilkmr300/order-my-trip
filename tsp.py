@@ -28,23 +28,31 @@ def tsp_dp(graph):
 
     n = graph.shape[0]
 
+    dp = [[None] * 2**n for _ in range(n)]
+
     def is_all_visited(visited):
-        return visited == 2 ** n - 1
+        return visited == 2**n - 1
 
     def is_visited(jLoc, visited):
-        return 1 << jLoc & visited
+        return (1 << jLoc) & visited
 
     def calc_best_cost_from(i_loc, visited):
         if is_all_visited(visited):
             return graph.iloc[i_loc, 0]
 
-        best_cost_from_here = float("inf")
+        if dp[i_loc][visited] is not None:
+            return dp[i_loc][visited][0]
+
+        best_cost_from_here, best_j_loc = float("inf"), None
 
         for j_loc in range(0, n):
             if i_loc != j_loc and not is_visited(j_loc, visited):
                 cost_from_here = graph.iloc[i_loc, j_loc] + calc_best_cost_from(j_loc, visited | 1 << j_loc)
                 if cost_from_here < best_cost_from_here:
                     best_cost_from_here = cost_from_here
+                    best_j_loc = j_loc
+
+        dp[i_loc][visited] = [best_cost_from_here, best_j_loc]
 
         return best_cost_from_here
 
