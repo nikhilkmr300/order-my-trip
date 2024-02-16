@@ -13,7 +13,7 @@
         $(document).ready(function () {
             var addButton = $('.add_button');
             var wrapper = $('.field_wrapper');
-            var fieldHTML = '<div class="form-group"><div class="input-group"><input type="text" name="textbox[]" class="form-control" placeholder="Enter location"><div class="input-group-append"><a href="javascript:void(0);" class="remove_button btn btn-danger">Remove</a></div></div></div>';
+            var fieldHTML = '<div class="form-group"><div class="input-group w-75 my-1 mr-1"><input type="text" name="textbox[]" class="form-control" placeholder="Enter location"><div class="input-group-append"><a href="javascript:void(0);" class="remove_button btn btn-danger">Remove</a></div></div></div>';
             $(addButton).click(function () {
                 $(wrapper).append(fieldHTML);
             });
@@ -27,34 +27,39 @@
 
 
 <body>
-    <div class="map-block">
-        <iframe width="100%" height="100%" frameborder="0" style="border:0" referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed/v1/directions?key={{ GMAPS_API_KEY
-    }}&origin={{ origin }}&waypoints={{ waypoints }}&destination={{ destination }}" allowfullscreen>
-        </iframe>
-    </div>
-
-    <div class="container input-block">
-        <h3>Locations</h3>
-        <form action="/" method="POST">
-            <div class="field_wrapper">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" name="textbox[]" class="form-control"
-                        placeholder="Enter location" required>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" name="textbox[]" class="form-control" placeholder="Enter location" required>
+    <div class="container-fluid">
+        <div class="row h-100">
+            <div class="col-8">
+                <iframe width="100%" height="100%" frameborder="0" style="border:0"
+                    referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed/v1/directions?key={{ GMAPS_API_KEY
+                }}&origin={{ origin }}&waypoints={{ waypoints }}&destination={{ destination }}" allowfullscreen>
+                </iframe>
+            </div>
+            <div class="col-4">
+                <div class="container input-block">
+                    <h3>Locations</h3>
+                    <form action="/" method="POST">
+                        <div class="field_wrapper">
+                            <div class="form-group">
+                                <div class="input-group w-75 my-1 mr-1">
+                                    <input type="text" name="textbox[]" class="form-control"
+                                        placeholder="Enter location" required>
+                                </div>
+                                <div class="input-group w-75 my-1">
+                                    <input type="text" name="textbox[]" class="form-control" placeholder="Enter location" required>
+                                </div>
+                            </div>
+                        </div>
                         <div class="input-group-append">
                             <a href="javascript:void(0);" class="add_button btn btn-primary">Add</a>
+                            <input type="submit" class="btn btn-success" value="Submit">
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-            <br>
-            <input type="submit" class="btn btn-success" value="Submit">
-        </form>
+        </div>
     </div>
+
 </body>
 
 </html>
