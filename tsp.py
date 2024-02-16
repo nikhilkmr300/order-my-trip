@@ -15,12 +15,12 @@ def tsp_brute_force(graph):
 
     min_cost, min_path = float("inf"), None
     for path in permutations(locs):
-        path = path + (path[0],)     # return to original city
+        path = path + (path[0],)  # return to original city
         cost = calc_cost(path)
         if cost < min_cost:
             min_cost, min_path = cost, path
 
-    return min_cost, min_path
+    return min_cost, list(min_path)
 
 
 def tsp_dp(graph):
@@ -28,6 +28,7 @@ def tsp_dp(graph):
 
     n = graph.shape[0]
 
+    # (best_cost, best_next_node) tuples for each (node, visited) pair
     dp = [[None] * 2**n for _ in range(n)]
 
     def is_all_visited(visited):
@@ -47,7 +48,9 @@ def tsp_dp(graph):
 
         for j_loc in range(0, n):
             if i_loc != j_loc and not is_visited(j_loc, visited):
-                cost_from_here = graph.iloc[i_loc, j_loc] + calc_best_cost_from(j_loc, visited | 1 << j_loc)
+                cost_from_here = graph.iloc[i_loc, j_loc] + calc_best_cost_from(
+                    j_loc, visited | 1 << j_loc
+                )
                 if cost_from_here < best_cost_from_here:
                     best_cost_from_here = cost_from_here
                     best_j_loc = j_loc
@@ -56,15 +59,26 @@ def tsp_dp(graph):
 
         return best_cost_from_here
 
-    return calc_best_cost_from(0, 1)    # 0 is visited
+    def trace_best_path():
+        i_loc, visited = 0, 1
+        best_path = [graph.index[0]]
+
+        for _ in range(n - 1):
+            i_loc = dp[i_loc][visited][1]
+            visited = visited | 1 << i_loc
+            best_path.append(graph.index[i_loc])
+
+        best_path.append([graph.index[0]])
+
+        return best_path
+
+    return calc_best_cost_from(0, 1), trace_best_path()
 
 
 if __name__ == "__main__":
     locs = ["New York", "Los Angeles", "Philadelphia", "Seattle", "Austin"]
 
     distances, times = build_matrices(locs)
-
-    print(distances)
 
     print(tsp_brute_force(distances))
     print(tsp_dp(distances))
