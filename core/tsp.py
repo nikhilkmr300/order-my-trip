@@ -66,7 +66,7 @@ def tsp_dp(graph):
             visited = visited | 1 << i_loc
             best_path.append(graph.index[i_loc])
 
-        best_path.append([graph.index[0]])
+        best_path.append(graph.index[0])
 
         return best_path
 

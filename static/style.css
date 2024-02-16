@@ -1,9 +1,10 @@
 .map-block {
     width: 100%;
-    height: 80%;
+    height: 75%;
     display: inline-block;
 }
 
 .input-block {
+    padding: 1rem;
     display: inline-block;
 }

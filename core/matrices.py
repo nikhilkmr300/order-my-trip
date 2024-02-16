@@ -5,10 +5,11 @@ import pandas as pd
 import requests
 
 
-def build_matrices(locs):
-    def format_locs(locs):
-        return "|".join([loc.replace("|", "") for loc in locs])
+def format_locs(locs):
+    return "|".join([loc.replace("|", "") for loc in locs])
 
+
+def build_matrices(locs):
     response = requests.get(
         "https://maps.googleapis.com/maps/api/distancematrix/json",
         params={

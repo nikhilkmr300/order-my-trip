@@ -30,11 +30,11 @@
     <div class="map-block">
         <iframe width="100%" height="100%" frameborder="0" style="border:0" referrerpolicy="no-referrer-when-downgrade"
             src="https://www.google.com/maps/embed/v1/directions?key={{ GMAPS_API_KEY
-    }}&origin=Seattle&waypoints=Los Angeles|Austin|New York&destination=Seattle" allowfullscreen>
+    }}&origin={{ origin }}&waypoints={{ waypoints }}&destination={{ destination }}" allowfullscreen>
         </iframe>
     </div>
 
-    <div class="container">
+    <div class="container input-block">
         <h3>Locations</h3>
         <form action="/" method="POST">
             <div class="field_wrapper">
