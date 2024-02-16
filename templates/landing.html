@@ -36,7 +36,7 @@
                 </iframe>
             </div>
             <div class="col-4">
-                <div class="container input-block">
+                <div class="row pt-4 input-block">
                     <h3>Locations</h3>
                     <form action="/" method="POST">
                         <div class="field_wrapper">
@@ -55,6 +55,25 @@
                             <input type="submit" class="btn btn-success" value="Submit">
                         </div>
                     </form>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 mt-5">
+                        {% for loc in min_path %}
+                            {{ loc }} <br/>
+                            {% if loop.index != min_path|length %}
+                                ↓<br/>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-5">
+                        {% if min_distance is not none %}
+                            Optimal distance = {{ min_distance }} m<br />
+                        {% elif min_time is not none %}
+                            Optimal time = {{ min_time }} s
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

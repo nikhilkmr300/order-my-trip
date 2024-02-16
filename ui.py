@@ -30,22 +30,27 @@ def main():
     else:
         locs = request.form.getlist("textbox[]")
         distances, times = build_matrices(locs)
-        _, path = tsp_dp(distances)
 
-        if len(path) == 2:
+        min_distance, min_time = None, None
+        min_distance, min_path = tsp_dp(distances)
+
+        if len(min_path) == 2:
             return render_template(
                 "landing.html",
                 GMAPS_API_KEY=os.environ["GMAPS_API_KEY"],
-                origin=f"{path[0]}",
-                destination=f"{path[-1]}",
+                origin=f"{min_path[0]}",
+                destination=f"{min_path[-1]}",
             )
         else:
             return render_template(
                 "landing.html",
                 GMAPS_API_KEY=os.environ["GMAPS_API_KEY"],
-                origin=f"{path[0]}",
-                waypoints=format_locs(path[1:-1]),
-                destination=f"{path[-1]}",
+                origin=f"{min_path[0]}",
+                waypoints=format_locs(min_path[1:-1]),
+                destination=f"{min_path[-1]}",
+                min_path=min_path,
+                min_distance=min_distance,
+                min_time=min_time
             )
 
 
