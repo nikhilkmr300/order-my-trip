@@ -39,6 +39,15 @@
                 <div class="row pt-4 input-block">
                     <h3>Locations</h3>
                     <form action="/" method="POST">
+                        Optimize for
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="to_optimize_distance" name="to_optimize" checked="true">
+                            <label for="to_optimize_distance">Distance</label><br />
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="to_optimize_time" name="to_optimize">
+                            <label for="to_optimize_time">Time</label>
+                        </div>
                         <div class="field_wrapper">
                             <div class="form-group">
                                 <div class="input-group w-75 my-1 mr-1">
@@ -46,7 +55,8 @@
                                         placeholder="Enter location" required>
                                 </div>
                                 <div class="input-group w-75 my-1">
-                                    <input type="text" name="textbox[]" class="form-control" placeholder="Enter location" required>
+                                    <input type="text" name="textbox[]" class="form-control"
+                                        placeholder="Enter location" required>
                                 </div>
                             </div>
                         </div>
@@ -59,19 +69,20 @@
                 <div class="row justify-content-center">
                     <div class="col-12 mt-5">
                         {% for loc in min_path %}
-                            {{ loc }} <br/>
-                            {% if loop.index != min_path|length %}
-                                ↓<br/>
-                            {% endif %}
+                        {{ loc }} <br />
+                        {% if loop.index != min_path|length %}
+                        ↓<br />
+                        {% endif %}
                         {% endfor %}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 mt-5">
                         {% if min_distance is not none %}
-                            Optimal distance = {{ min_distance }} m<br />
-                        {% elif min_time is not none %}
-                            Optimal time = {{ min_time }} s
+                        Optimal distance = {{ min_distance }} m<br />
+                        {% endif %}
+                        {% if min_time is not none %}
+                        Optimal time = {{ min_time }} s
                         {% endif %}
                     </div>
                 </div>

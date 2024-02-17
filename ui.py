@@ -29,10 +29,16 @@ def main():
         )
     else:
         locs = request.form.getlist("textbox[]")
+        to_optimize = request.form.get("to_optimize")
+
         distances, times = build_matrices(locs)
 
         min_distance, min_time = None, None
-        min_distance, min_path = tsp_dp(distances)
+
+        if to_optimize == "to_optimize_distance":
+            min_distance, min_path = tsp_dp(distances)
+        elif to_optimize == "to_optimize_time":
+            min_time, min_path = tsp_dp(times)
 
         if len(min_path) == 2:
             return render_template(
@@ -40,6 +46,9 @@ def main():
                 GMAPS_API_KEY=os.environ["GMAPS_API_KEY"],
                 origin=f"{min_path[0]}",
                 destination=f"{min_path[-1]}",
+                min_path=min_path,
+                min_distance=min_distance,
+                min_time=min_time,
             )
         else:
             return render_template(
@@ -50,7 +59,7 @@ def main():
                 destination=f"{min_path[-1]}",
                 min_path=min_path,
                 min_distance=min_distance,
-                min_time=min_time
+                min_time=min_time,
             )
 
 
