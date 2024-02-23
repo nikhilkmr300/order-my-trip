@@ -9,7 +9,7 @@ this does not guarantee the shortest or quickest route between cities or
 landmarks.
 
 This is essentially the traveling salesperson problem. The task is to determine
-the optimal sequence for visiting \(n\) cities, ensuring that the
+the optimal sequence for visiting $n$ cities, ensuring that the
 salesperson returns to the starting point while covering the shortest possible
 total distance.
 
